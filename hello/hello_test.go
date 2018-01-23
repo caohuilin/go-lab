@@ -2,11 +2,13 @@ package hello
 
 import (
 	"math"
+	"strconv"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
 )
 
+// https://leetcode.com/problems/two-sum/description/
 func twoSum(nums []int, target int) []int {
 	for i, a := range nums {
 		for j, b := range nums {
@@ -21,6 +23,7 @@ func twoSum(nums []int, target int) []int {
 	panic("no ans")
 }
 
+// https://leetcode.com/problems/reverse-integer/description/
 func reverse(x int) int {
 	sum := 0
 	for {
@@ -38,6 +41,17 @@ func reverse(x int) int {
 		return 0
 	}
 	return sum
+}
+
+// https://leetcode.com/problems/palindrome-number/description/
+func isPalindrome(x int) bool {
+	s := strconv.Itoa(x)
+	for i := 0; i < len(s)/2; i++ {
+		if s[i] != s[len(s)-1-i] {
+			return false
+		}
+	}
+	return true
 }
 
 func TestSpec(t *testing.T) {
@@ -58,5 +72,12 @@ func TestSpec(t *testing.T) {
 		So(reverse(-1), ShouldResemble, -1)
 		So(reverse(1534236469), ShouldResemble, 0)
 		So(reverse(-2147483648), ShouldResemble, 0)
+	})
+
+	Convey("Palindrome Number", t, func() {
+		So(isPalindrome(123), ShouldResemble, false)
+		So(isPalindrome(121), ShouldResemble, true)
+		So(isPalindrome(1), ShouldResemble, true)
+		So(isPalindrome(11), ShouldResemble, true)
 	})
 }
