@@ -109,6 +109,23 @@ func strStr(haystack string, needle string) int {
 	return -1
 }
 
+// https://leetcode.com/problems/search-insert-position/description/
+func searchInsert(nums []int, target int) int {
+	i := 0
+	for i = 0; i < len(nums); i++ {
+		if nums[i] == target {
+			return i
+		}
+		if nums[i] > target {
+			return i
+		}
+	}
+	if i == len(nums) {
+		return i
+	}
+	return -1
+}
+
 func TestSpec(t *testing.T) {
 	Convey("twoSum", t, func() {
 		So(twoSum([]int{2, 7, 11, 15}, 9), ShouldResemble, []int{0, 1})
@@ -156,5 +173,13 @@ func TestSpec(t *testing.T) {
 		So(strStr("", ""), ShouldResemble, 0)
 		So(strStr("", "aa"), ShouldResemble, -1)
 		So(strStr("a", "a"), ShouldResemble, 0)
+	})
+
+	Convey("Search Insert Position", t, func() {
+		So(searchInsert([]int{1, 3, 5, 6}, 5), ShouldResemble, 2)
+		So(searchInsert([]int{1, 3, 5, 6}, 2), ShouldResemble, 1)
+		So(searchInsert([]int{1, 3, 5, 6}, 7), ShouldResemble, 4)
+		So(searchInsert([]int{1, 3, 5, 6}, 0), ShouldResemble, 0)
+		So(searchInsert([]int{}, 2), ShouldResemble, 0)
 	})
 }
