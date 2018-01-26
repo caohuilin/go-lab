@@ -88,6 +88,7 @@ func removeDuplicates(nums []int) int {
 	return j
 }
 
+// https://leetcode.com/problems/implement-strstr/description/
 func strStr(haystack string, needle string) int {
 	n := len(haystack)
 	m := len(needle)
