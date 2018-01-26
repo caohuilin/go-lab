@@ -71,6 +71,23 @@ func removeElement(nums []int, val int) int {
 	return j
 }
 
+// https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/
+func removeDuplicates(nums []int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	j := 0
+	for i, a := range nums {
+		if i != 0 && a == nums[i-1] {
+			continue
+		}
+		nums[j] = nums[i]
+		j++
+	}
+	nums = nums[:len(nums)-1]
+	return j
+}
+
 func TestSpec(t *testing.T) {
 	Convey("twoSum", t, func() {
 		So(twoSum([]int{2, 7, 11, 15}, 9), ShouldResemble, []int{0, 1})
@@ -103,5 +120,11 @@ func TestSpec(t *testing.T) {
 		So(removeElement([]int{2}, 2), ShouldResemble, 0)
 		So(removeElement([]int{2}, 3), ShouldResemble, 1)
 		So(removeElement([]int{}, 3), ShouldResemble, 0)
+	})
+
+	Convey("Remove Duplicates from Sorted Array", t, func() {
+		So(removeDuplicates([]int{2, 2, 3, 3}), ShouldResemble, 2)
+		So(removeDuplicates([]int{2}), ShouldResemble, 1)
+		So(removeDuplicates([]int{}), ShouldResemble, 0)
 	})
 }
