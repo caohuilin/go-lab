@@ -88,6 +88,26 @@ func removeDuplicates(nums []int) int {
 	return j
 }
 
+func strStr(haystack string, needle string) int {
+	n := len(haystack)
+	m := len(needle)
+	if m == 0 {
+		return 0
+	}
+	j := 0
+	for i := 0; i <= n-m; i++ {
+		for j = 0; j < m; j++ {
+			if haystack[i+j] != needle[j] {
+				break
+			}
+		}
+		if j == m {
+			return i
+		}
+	}
+	return -1
+}
+
 func TestSpec(t *testing.T) {
 	Convey("twoSum", t, func() {
 		So(twoSum([]int{2, 7, 11, 15}, 9), ShouldResemble, []int{0, 1})
@@ -126,5 +146,14 @@ func TestSpec(t *testing.T) {
 		So(removeDuplicates([]int{2, 2, 3, 3}), ShouldResemble, 2)
 		So(removeDuplicates([]int{2}), ShouldResemble, 1)
 		So(removeDuplicates([]int{}), ShouldResemble, 0)
+	})
+
+	Convey("Implement strStr()", t, func() {
+		So(strStr("hello", "ll"), ShouldResemble, 2)
+		So(strStr("aaaaa", "bba"), ShouldResemble, -1)
+		So(strStr("ababab", "ba"), ShouldResemble, 1)
+		So(strStr("", ""), ShouldResemble, 0)
+		So(strStr("", "aa"), ShouldResemble, -1)
+		So(strStr("a", "a"), ShouldResemble, 0)
 	})
 }
