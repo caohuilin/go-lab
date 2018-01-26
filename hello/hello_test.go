@@ -54,6 +54,23 @@ func isPalindrome(x int) bool {
 	return true
 }
 
+// https://leetcode.com/problems/remove-element/description/
+func removeElement(nums []int, val int) int {
+	if len(nums) == 0 {
+		return 0
+	}
+	j := 0
+	for i, a := range nums {
+		if a == val {
+			continue
+		}
+		nums[j] = nums[i]
+		j++
+	}
+	nums = nums[:len(nums)-1]
+	return j
+}
+
 func TestSpec(t *testing.T) {
 	Convey("twoSum", t, func() {
 		So(twoSum([]int{2, 7, 11, 15}, 9), ShouldResemble, []int{0, 1})
@@ -79,5 +96,12 @@ func TestSpec(t *testing.T) {
 		So(isPalindrome(121), ShouldResemble, true)
 		So(isPalindrome(1), ShouldResemble, true)
 		So(isPalindrome(11), ShouldResemble, true)
+	})
+
+	Convey("Remove Element", t, func() {
+		So(removeElement([]int{2, 3, 3, 2}, 3), ShouldResemble, 2)
+		So(removeElement([]int{2}, 2), ShouldResemble, 0)
+		So(removeElement([]int{2}, 3), ShouldResemble, 1)
+		So(removeElement([]int{}, 3), ShouldResemble, 0)
 	})
 }
