@@ -1,6 +1,7 @@
 package hello
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 	"testing"
@@ -126,6 +127,28 @@ func searchInsert(nums []int, target int) int {
 	return -1
 }
 
+// https://leetcode.com/problems/maximum-subarray/description/
+func maxSubArray(nums []int) int {
+	max := math.MinInt32
+	for i, a := range nums {
+		fmt.Println("a =", a)
+		if a > max {
+			max = a
+		}
+		sum := a
+		for j, b := range nums {
+			if i != j {
+				sum = sum + b
+				fmt.Println("sum =", sum)
+				if sum > max {
+					max = sum
+				}
+			}
+		}
+	}
+	return max
+}
+
 func TestSpec(t *testing.T) {
 	Convey("twoSum", t, func() {
 		So(twoSum([]int{2, 7, 11, 15}, 9), ShouldResemble, []int{0, 1})
@@ -181,5 +204,12 @@ func TestSpec(t *testing.T) {
 		So(searchInsert([]int{1, 3, 5, 6}, 7), ShouldResemble, 4)
 		So(searchInsert([]int{1, 3, 5, 6}, 0), ShouldResemble, 0)
 		So(searchInsert([]int{}, 2), ShouldResemble, 0)
+	})
+
+	Convey("Maximum Subarray", t, func() {
+		So(maxSubArray([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}), ShouldResemble, 6)
+		So(maxSubArray([]int{-2, 1, -3}), ShouldResemble, 1)
+		So(maxSubArray([]int{1}), ShouldResemble, 1)
+		So(maxSubArray([]int{1, -1, 1}), ShouldResemble, 1)
 	})
 }
