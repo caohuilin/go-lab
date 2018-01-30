@@ -1,7 +1,6 @@
 package hello
 
 import (
-	"fmt"
 	"math"
 	"strconv"
 	"testing"
@@ -131,15 +130,13 @@ func searchInsert(nums []int, target int) int {
 func maxSubArray(nums []int) int {
 	max := math.MinInt32
 	for i, a := range nums {
-		fmt.Println("a =", a)
 		if a > max {
 			max = a
 		}
 		sum := a
 		for j, b := range nums {
-			if i != j {
+			if i < j {
 				sum = sum + b
-				fmt.Println("sum =", sum)
 				if sum > max {
 					max = sum
 				}
